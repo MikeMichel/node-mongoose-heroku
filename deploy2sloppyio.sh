@@ -1,5 +1,5 @@
 #!/bin/bash
-# Test 3
+# trigger Test 3
 uname -a
 curl -L http://files.sloppy.io/sloppy-`uname -s`-`uname -m` > ./sloppy
 chmod +x ./sloppy
