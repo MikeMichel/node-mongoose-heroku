@@ -36,16 +36,12 @@ build:
           echo "npm version $(npm -v) running"
 
 deploy:
+    box: node
     steps:
-    # use the scratch step to build a container from scratch based on the files present
-    - internal/docker-push:
-        username: $DOCKERHUB_USERNAME
-        password: $DOCKERHUB_PASSWORD
-        # username: $QUAY_USERNAME
-        # password: $QUAY_PASSWORD
+    - internal/docker-scratch-push:
+        username: $QUAY_USERNAME
+        password: $QUAY_PASSWORD
         tag: $WERCKER_GIT_COMMIT
         ports: "5000"
-        repository: mikemichel/node-mongoose-sloppyio
-        # repository: quay.io/mikemichel/node-mongoose-sloppyio
-        registry: https://registry.hub.docker.com
-        # registry: https://quay.io
+        repository: quay.io/mikemichel/node-mongoose-sloppyio
+        registry: https://quay.io
