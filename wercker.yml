@@ -43,5 +43,5 @@ deploy:
         password: $QUAY_PASSWORD
         tag: $WERCKER_GIT_COMMIT
         ports: "5000"
-        repository: quay.io/mikemichel/node-mongoose-sloppyio
+        repository: quay.io/mikemichel/wercker2sloppy
         registry: https://quay.io
