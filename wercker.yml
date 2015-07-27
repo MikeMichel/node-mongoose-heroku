@@ -34,6 +34,9 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+          echo $WERCKER_GIT_COMMIT
+          echo $QUAY_USERNAME
+          echo $QUAY_PASSWORD
 
 deploy:
     box: node
