@@ -1,0 +1,2 @@
+- service: mikemichel/node-mongoose-sloppyio
+  command: npm run
