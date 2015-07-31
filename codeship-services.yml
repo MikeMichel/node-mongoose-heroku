@@ -1,4 +1,4 @@
-app:
-  build:
+node:
+  build: 
     image: mikemichel/node-mongoose-sloppyio
     dockerfile_path: Dockerfile
