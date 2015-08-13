@@ -1,4 +1,4 @@
 FROM node:0.12.7-onbuild
 
-ENV MONGODB_URI mongodb://mongodb.backend.todo.$username/todo
+ENV MONGODB_URI mongodb://mongodb/todo
 EXPOSE 5000

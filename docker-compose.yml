@@ -1,6 +1,8 @@
 node:
-  build: .
     image: mikemichel/node-mongoose-sloppyio
-    dockerfile_path: Dockerfile
     environment:
-     - MONGODB_URI=mongodb://mongodb.backend.todo.$username/todo
+      - MONGODB_URI=mongodb://mongodb/todo
+    links:
+      - mongodb     
+mongodb:
+  image: mongo
