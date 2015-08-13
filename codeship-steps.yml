@@ -1,8 +1,9 @@
 - name: start node
   service: node
-  command: npm start
+  command: npm test
 
 - name: push it
+  service: node
   type: push
   image_name: mikemichel/node-mongoose-sloppyio
   registry: https://index.docker.io/v1/
