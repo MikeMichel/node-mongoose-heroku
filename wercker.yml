@@ -50,3 +50,11 @@ deploy:
         #repository: quay.io/mikemichel/wercker2sloppy
         repository: mikemichel/wercker2sloppy
         #registry: https://quay.io
+    - script:
+        name: get latest sloppy cli
+        code: |
+          curl -L http://files.sloppy.io/sloppy-`uname -s`-`uname -m` > /usr/local/bin/sloppy
+          chmod +x /usr/local/bin/sloppy
+    - script:
+        name: login to sloppy
+        code: sloppy
