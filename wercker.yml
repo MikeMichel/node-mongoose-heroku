@@ -3,7 +3,7 @@
 # If you want Nodesource's container you would reference nodesource/node
 # Read more about containers on our dev center
 # http://devcenter.wercker.com/docs/containers/index.html
-box: node
+box: node0.12.7-onbuild
 # This is the build pipeline. Pipelines are the core of wercker
 # Read more about pipelines on our dev center
 # http://devcenter.wercker.com/docs/pipelines/index.html
@@ -38,7 +38,7 @@ build:
 
 
 deploy:
-    box: node0.12-onbuild
+    box: node0.12.7-onbuild
     steps:
     - internal/docker-push:
         #username: $QUAY_USERNAME
@@ -60,4 +60,4 @@ deploy:
         code: sloppy login -u $SLOPPY_USERNAME -p $SLOPPY_PASSWORD
     - script:
         name: deploy latest image
-        code: sloppy change
+        code: sloppy change todo/frontend/node -image mikemichel/wercker2sloppy:$WERCKER_GIT_COMMIT
