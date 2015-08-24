@@ -35,11 +35,10 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
           echo $WERCKER_GIT_COMMIT
-          echo $QUAY_USERNAME
-          echo $QUAY_PASSWORD
+
 
 deploy:
-    box: node
+    box: node0.12-onbuild
     steps:
     - internal/docker-push:
         #username: $QUAY_USERNAME
@@ -50,6 +49,7 @@ deploy:
         #repository: quay.io/mikemichel/wercker2sloppy
         repository: mikemichel/wercker2sloppy
         #registry: https://quay.io
+        tag: $WERCKER_GIT_COMMIT
     - script:
         name: get latest sloppy cli
         code: |
@@ -57,4 +57,7 @@ deploy:
           chmod +x /usr/local/bin/sloppy
     - script:
         name: login to sloppy
-        code: sloppy
+        code: sloppy login -u $SLOPPY_USERNAME -p $SLOPPY_PASSWORD
+    - script:
+        name: deploy latest image
+        code: sloppy change
