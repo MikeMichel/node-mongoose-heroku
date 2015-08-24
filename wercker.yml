@@ -41,7 +41,7 @@ build:
 deploy:
     box: node
     steps:
-    - internal/docker-scratch-push:
+    - internal/docker-push:
         #username: $QUAY_USERNAME
         username: $DOCKERHUB_USERNAME
         #password: $QUAY_PASSWORD
