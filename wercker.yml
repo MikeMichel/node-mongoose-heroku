@@ -60,6 +60,16 @@ build:
 deploy:
     box: node:0.12.7
     steps:
+    - internal/docker-push:
+        #username: $QUAY_USERNAME
+        username: $DOCKERHUB_USERNAME
+        #password: $QUAY_PASSWORD
+        password: $DOCKERHUB_PASSWORD
+        ports: "5000"
+        #repository: quay.io/mikemichel/wercker2sloppy
+        repository: mikemichel/wercker2sloppy
+        #registry: https://quay.io
+        tag: $WERCKER_GIT_COMMIT
     - script:
         name: get latest sloppy cli
         code: |
