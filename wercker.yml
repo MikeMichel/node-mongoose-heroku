@@ -49,7 +49,7 @@ build:
 
 
 deploy:
-    box: node:0.12.7
+    box: node:0.12.7:onbuild
     steps:
     - script:
         name: create /usr/src/app
@@ -67,8 +67,7 @@ deploy:
         repository: mikemichel/wercker2sloppy
         #registry: https://quay.io
         tag: $WERCKER_GIT_COMMIT
-        workdir: /usr/src/app/
-        cmd: npm start
+        # cmd: npm start
     - script:
         name: get latest sloppy cli
         code: |
