@@ -55,7 +55,7 @@ deploy:
     steps:
     - script:
         name: copy
-        code: cp -R "$WERCKER_OUTPUT_DIR"/* /usr/src/app
+        code: cp -R /pipeline/source/* /usr/src/app/
     - internal/docker-push:
         #username: $QUAY_USERNAME
         username: $DOCKERHUB_USERNAME
