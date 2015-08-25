@@ -67,6 +67,8 @@ deploy:
         repository: mikemichel/wercker2sloppy
         #registry: https://quay.io
         tag: $WERCKER_GIT_COMMIT
+        cwd: /usr/src/app/
+        cmd: npm start
     - script:
         name: get latest sloppy cli
         code: |
