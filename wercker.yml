@@ -45,16 +45,6 @@ build:
         cwd: /usr/src/app/
     # A step that executes `npm test` command
     # - npm-test
-    - internal/docker-push:
-        #username: $QUAY_USERNAME
-        username: $DOCKERHUB_USERNAME
-        #password: $QUAY_PASSWORD
-        password: $DOCKERHUB_PASSWORD
-        ports: "5000"
-        #repository: quay.io/mikemichel/wercker2sloppy
-        repository: mikemichel/wercker2sloppy
-        #registry: https://quay.io
-        tag: $WERCKER_GIT_COMMIT
 
 
 deploy:
