@@ -34,9 +34,7 @@ build:
 #    - script:
 #        name: ls -la
 #        code: ls -la
-#    - script:
-#        name: create /usr/src/app
-#        code: mkdir -p /usr/src/app
+
 #    - script:
 #        name: copy app
 #        code: cp -R . /usr/src/app/
@@ -53,6 +51,9 @@ build:
 deploy:
     box: node:0.12.7
     steps:
+    - script:
+        name: create /usr/src/app
+        code: mkdir -p /usr/src/app
     - script:
         name: copy
         code: cp -R /pipeline/source/* /usr/src/app/
