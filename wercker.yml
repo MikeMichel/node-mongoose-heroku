@@ -44,7 +44,7 @@ build:
     - npm-install:
         cwd: /usr/src/app/
     # A step that executes `npm test` command
-    - npm-test
+    # - npm-test
     - internal/docker-push:
         #username: $QUAY_USERNAME
         username: $DOCKERHUB_USERNAME
