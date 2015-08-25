@@ -1,8 +1,12 @@
 node:
-    image: mikemichel/node-mongoose-sloppyio
+    image: mikemichel/wercker2sloppy
     environment:
       - MONGODB_URI=mongodb://mongodb/todo
     links:
       - mongodb
+    ports:
+      - 5000:5000
 mongodb:
   image: mongo
+  ports:
+     - 27015
