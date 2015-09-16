@@ -1,0 +1,84 @@
+# This references the default nodejs container from
+# the Docker Hub: https://registry.hub.docker.com/_/node/
+# If you want Nodesource's container you would reference nodesource/node
+# Read more about containers on our dev center
+# http://devcenter.wercker.com/docs/containers/index.html
+box: node:0.12.7-onbuild
+# This is the build pipeline. Pipelines are the core of wercker
+# Read more about pipelines on our dev center
+# http://devcenter.wercker.com/docs/pipelines/index.html
+
+# You can also use services such as databases. Read more on our dev center:
+# http://devcenter.wercker.com/docs/services/index.html
+# services:
+    # - postgres
+    # http://devcenter.wercker.com/docs/services/postgresql.html
+
+    # - mongodb
+    # http://devcenter.wercker.com/docs/services/mongodb.html
+build:
+  # The steps that will be executed on build
+  # Steps make up the actions in your pipeline
+  # Read more about steps on our dev center:
+  # http://devcenter.wercker.com/docs/steps/index.html
+  steps:
+
+    # A custom script step, name value is used in the UI
+    # and the code value contains the command that get executed
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+          echo $WERCKER_GIT_COMMIT
+#    - script:
+#        name: ls -la
+#        code: ls -la
+
+#    - script:
+#        name: copy app
+#        code: cp -R . /usr/src/app/
+        # A step that executes `npm install` command
+    - npm-install
+#        cwd: /usr/src/app/
+    # A step that executes `npm test` command
+    # - npm-test
+    - script:
+        name: copy files to the pipeline
+        code: cp -R . "$WERCKER_OUTPUT_DIR"
+
+
+deploy:
+    box: node:0.12.7-onbuild
+    steps:
+    - script:
+        name: create /usr/src/app
+        code: mkdir -p /usr/src/app
+    - script:
+        name: copy
+        code: cp -R /pipeline/source/* /usr/src/app/
+    - internal/docker-push:
+        #username: $QUAY_USERNAME
+        username: $DOCKERHUB_USERNAME
+        #password: $QUAY_PASSWORD
+        password: $DOCKERHUB_PASSWORD
+        ports: "5000"
+        #repository: quay.io/mikemichel/wercker2sloppy
+        repository: mikemichel/wercker2sloppy
+        #registry: https://quay.io
+        tag: $WERCKER_GIT_COMMIT
+        cmd: npm start
+    - script:
+        name: get latest sloppy cli
+        code: |
+          curl -L http://files.sloppy.io/sloppy-`uname -s`-`uname -m` > /usr/local/bin/sloppy
+          chmod +x /usr/local/bin/sloppy
+    - script:
+        name: login to sloppy
+        code: sloppy login -u $SLOPPY_USERNAME -p $SLOPPY_PASSWORD
+    - script:
+        name: deploy latest image
+        code: sloppy change todo/frontend/node -image mikemichel/wercker2sloppy:$WERCKER_GIT_COMMIT
+    - script:
+        name: logout
+        code: sloppy logout
