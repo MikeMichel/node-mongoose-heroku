@@ -8,3 +8,5 @@ node:
       - 5000:5000
 mongodb:
   image: mongo
+  ports:
+     - 27015

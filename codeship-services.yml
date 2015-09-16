@@ -8,3 +8,9 @@ node:
       - mongodb
 mongodb:
   image: mongo
+
+deploy:
+  build:
+    image: deploy
+    dockerfile_path: Dockerfile.deploy
+  encrypted_env_file: sloppy.env.encrypted
