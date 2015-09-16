@@ -1,6 +1,8 @@
 - name: start node
   service: node
-  command: npm test
+  # now you would start tests here like
+  # command: npm test
+  command: npm version
 
 - name: push it
   service: node
